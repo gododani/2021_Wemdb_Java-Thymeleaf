@@ -1,0 +1,6 @@
+host: mysql.srkhost.eu
+user_name: u2952_h9OIeSpMMJ
+password: uI6BCr2P1iOQ
+---------------------------
+database_name: s2952_film
+port: 3306

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="eng">
+<div th:replace="fragments/header :: basic (title='Error')"></div>
+<body>
+<div th:replace="fragments/navigation :: navigation (active='Filmek')"></div>
+<div class="container">
+    <hr>
+    <h1 class="section-header">Something went wrong!</h1>
+    <h2 class="movie-item-title">You are on this Webpage, but we do not grant you the rank of Authority.</h2>
+    <a href="/">Go Home</a>
+
+</div>
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

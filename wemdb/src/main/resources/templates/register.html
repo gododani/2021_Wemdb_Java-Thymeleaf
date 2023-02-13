@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:replace="fragments/header :: basic (title='Register')"></div>
+<body>
+<!--@thymesVar id="user" type="com.example.film.model.User"-->
+<form class="register-form col-8 col-sm-6 col-md-6 col-lg-5 col-xl-4" action="#" th:action="@{/register}" th:object="${user}" method="post">
+    <div class="register-logo">
+        <a th:href="@{/}"><img th:src="@{/images/logo.png}" alt="logo"></a>
+    </div>
+    <div class="container">
+        <h1 class="register-header">Regisztráció</h1>
+        <hr>
+        <div class="register-firstBlock">
+            <p><span class="validationError" th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}"></span></p>
+            <label for="user-name"><b>Felhasználónév:</b></label>
+            <input  class="register-input" th:field="*{userName}" id="user-name" name="user_name" >
+            <p><span class="validationError" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span></p>
+            <p><span class="validationError" th:if="${errorMessage}"  th:text="${errorMessage}">Error</span></p>
+            <label for="email"><b>Email cím:</b></label>
+            <input class="register-input" th:field="*{email}" id="email" name="email">
+        </div>
+        <div class="register-secondBlock">
+            <p><span class="validationError" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span></p>
+            <label for="register-pwd"><b>Jelszó:</b></label>
+            <input type="password" class="register-input" th:field="*{password}" id="register-pwd" name="register-pwd"  >
+            <p><span class="validationError" th:if="${errorPWMessage}"  th:text="${errorPWMessage}">Error</span></p>
+            <label for="register-pwd-again"><b>Jelszó újra:</b></label>
+            <input type="password" class="register-input"  id="register-pwd-again" name="register-pwd-again"  >
+        </div>
+        <div class="register-button">
+            <input type="submit" class="register-input register-submit" id="register" value="Regisztráció">
+        </div>
+        <hr>
+        <div>
+            <span>Van már fiókja?</span>
+            <a th:href="@{/login}"><strong>Lépjen be itt</strong></a>
+        </div>
+    </div>
+</form>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<div th:replace="fragments/header :: basic (title='Profil')"></div>
+<body>
+<!--@thymesVar id="updateduser" type="com.example.film.model.User"-->
+
+<div th:replace="fragments/navigation :: nav (active='Main')"></div>
+<form class="profil-form" action="#" th:object="${updateduser}" th:action="@{/profil}" method="post">
+    <div class="container">
+        <h1 class="profil-header">Profil</h1>
+        <hr>
+        <div class="updateerror" th:if="${updateErrorMessage}" th:text="${updateErrorMessage}">Message</div>
+        <div class="updatemessage" th:if="${updateMessage}" th:text="${updateMessage}">Message</div>
+        <label for="email"><b>Email cím:</b></label>
+        <input type="email" th:attr="value = ${user.getEmail()}" class="profil-input" id="email" name="email" required disabled>
+        <label for="userName"><b>Felhasználó név:</b></label>
+        <input type="text" th:attr="value = ${user.getUserName()}" class="profil-input" id="userName" name="userName" required disabled>
+        <div class="collapse navbar-collapse" id="jelszoChange">
+            <ul class="pwd-toggler">
+                <li>
+                    <label for="jelszo"><b>Jelszó:</b></label>
+                    <input type="password" th:field="*{password}" class="profil-input" id="jelszo" name="jelszo" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" required disabled>
+                </li>
+                <li>
+                    <label for="jelszoUjra"><b>Jelszó újra:</b></label>
+                    <input type="password" class="profil-input" id="jelszoUjra" name="jelszoUjra" required disabled>
+                </li>
+            </ul>
+        </div>
+        <hr>
+        <button id="pwd-toggler" class="navbar-toggler profil-input profil-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#jelszoChange" aria-controls="jelszoChange" aria-expanded="false" aria-label="Toggle navigation">
+            Adatok módosítása
+        </button>
+        <div class="profil-button">
+            <input type="submit" class="profil-input profil-submit" id="profil" value="Módosít" hidden>
+        </div>
+        <span id="profil-warning" hidden>Az adatok módosítása után újból be kell jelentkezni!</span>
+    </div>
+</form>
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

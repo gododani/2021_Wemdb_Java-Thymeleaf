@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="eng">
+<div th:replace="fragments/header :: basic (title='FilmAdd')"></div>
+<body>
+<!--@thymesVar id="film" type="com.example.film.model.Film"-->
+<div th:replace="fragments/navigation :: nav (active='FilmAdd')"></div>
+<form class="filmadd-form" action="#" th:action="@{/film/add}" th:object="${film}" method="post">
+    <div class="container">
+        <div class="row">
+            <h1 class="register-header">Film vagy sorozat hozzáadása </h1>
+            <div class="filmAdd" th:if="${message}"  th:text="${message}">Message</div>
+            <div class="filmAdd" th:if="${filmAlreadyExist}"  th:text="${filmAlreadyExist}">Error</div>
+            <div class="filmAdd" th:if="${filmGenresError}"  th:text="${filmGenresError}">Error</div>
+            <hr>
+            <div class="col-md-6">
+                <p><span class="validationError" th:if="${#fields.hasErrors('cim')}" th:errors="*{cim}"></span></p>
+                <label for="film-cim"><b>Cím:</b></label><br>
+                <input  type="text" class="filmadd-input" th:field="*{cim}" id="film-cim" name="film-cim" >
+
+                <p><span class="validationError" th:if="${#fields.hasErrors('indexKep')}" th:errors="*{indexKep}"></span></p>
+                <label for="indexkepurl"><b>Index Kép:</b></label><br>
+                <input type="text"  class="filmadd-input" th:field="*{indexKep}" id="indexkepurl" name="indexkepurl">
+
+                <p><span class="validationError" th:if="${#fields.hasErrors('leiras')}" th:errors="*{leiras}"></span></p>
+                <label for="leiras"><b>Leírás</b></label><br>
+                <textarea class="filmadd-input" name="leiras" id="leiras" cols="30" th:field="*{leiras}" rows="10" ></textarea>
+            </div>
+            <div class="col-md-6">
+                <p><span class="validationError" th:if="${#fields.hasErrors('hossz')}" th:errors="*{hossz}"></span></p>
+                <label for="filmhossz"><b>Hossz:</b></label><br>
+                <input type="number" class="filmadd-input" th:field="*{hossz}" id="filmhossz" name="filmhossz"  >
+
+                <p><span class="validationError" th:if="${#fields.hasErrors('mufaj')}" th:errors="*{mufaj}"></span></p>
+                <label for="mufaj"><b>Műfaj</b></label><br>
+                <input type="text" class="filmadd-input" th:field="*{mufaj}" id="mufaj" name="mufaj"  >
+
+                <p><span class="validationError" th:if="${premierErrorMessage}"  th:text="${premierErrorMessage}">Error</span></p>
+                <label for="premier"><b>Premier</b></label><br>
+                <input type="date" class="filmadd-input" th:field="*{premier}" id="premier" name="premier">
+
+                <p><span class="validationError" th:if="${#fields.hasErrors('besorolas')}" th:errors="*{besorolas}"></span></p>
+                <label for="besorolas"><b>Besorolás:</b></label><br>
+                <input type="text" class="filmadd-input" th:field="*{besorolas}" id="besorolas" name="besorolas"  >
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <p><span class="validationError" th:if="${#fields.hasErrors('evad')}" th:errors="*{evad}"></span></p>
+                        <label for="evad"><b>Évad:</b></label><br>
+                        <input type="number" class="filmadd-input" th:field="*{evad}" id="evad" name="evad"  >
+                    </div>
+                    <div class="col-md-6">
+                        <p><span class="validationError" th:if="${#fields.hasErrors('epizodok')}" th:errors="*{epizodok}"></span></p>
+                        <label for="epizodok"><b>Epizódok:</b></label><br>
+                        <input type="number" class="filmadd-input" th:field="*{epizodok}" id="epizodok" name="epizodok">
+                    </div>
+                </div>
+                <p><span class="validationError" th:if="${#fields.hasErrors('tipus')}"  th:errors="*{tipus}"></span></p>
+                <p><span class="validationError" th:if="${filmTypeError}"  th:text="${filmTypeError}">Error</span></p>
+                <label for="tipus"><b>Típus:</b></label><br>
+                <select class="filmadd-input" id="tipus" name="tipus" th:field="*{tipus}">
+                    <option value="film">Film</option>
+                    <option value="sorozat">Sorozat</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="film-add col-md-6">
+                <input type="submit" class="btn btn-primary filmadd-input filmadd-submit" id="register" value="Felvisz">
+            </div>
+            <div class="film-add col-md-6">
+                <input type="reset" class="btn btn-danger filmadd-input filmadd-reset" value="Visszaállít">
+            </div>
+        </div>
+        <hr>
+    </div>
+</form>
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

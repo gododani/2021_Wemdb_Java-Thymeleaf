@@ -1,0 +1,76 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" th:fragment="navigation (active)"
+     xmlns:th="http://www.thymeleaf.org"  xmlns="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <div class="container-fluid" style="text-align: center; margin: auto;">
+        <div class="logo navbar-brand"><a th:href="@{/}"><img th:src="@{/images/logo.png}" alt="logo" height="60px"></a></div>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Szűrés
+                    </a>
+                    <ul class="dropdown-menu filter-ul" aria-labelledby="navbarDropdown">
+                        <div class="filter-dropdown">
+                            <li><a class="dropdown-item" th:href="@{/filter(genre='action')}">Akció</a></li>
+                            <li><a class="dropdown-item" th:href="@{/filter(genre='animated')}">Animáció</a></li>
+                            <li><a class="dropdown-item" th:href="@{/filter(genre='crime')}">Bűnügyi</a></li>
+                            <li><a class="dropdown-item" th:href="@{/filter(genre='family')}">Család</a></li>
+                            <li><a class="dropdown-item" th:href="@{/filter(genre='documentary')}">Dokumentum</a></li>
+                            <li><a class="dropdown-item" th:href="@{/filter(genre='drama')}">Dráma</a></li>
+                            <li><a class="dropdown-item" th:href="@{/filter(genre='fantasy')}">Fantasy</a></li>
+                            <li><a class="dropdown-item" th:href="@{/filter(genre='war')}">Háborús</a></li>
+                            <li><a class="dropdown-item" th:href="@{/filter(genre='horror')}">Horror</a></li>
+                            <li><a class="dropdown-item" th:href="@{/filter(genre='game')}">Játék</a></li>
+                            <li><a class="dropdown-item" th:href="@{/filter(genre='adventure')}">Kaland</a></li>
+                            <li><a class="dropdown-item" th:href="@{/filter(genre='comedy')}">Komédia</a></li>
+                            <li><a class="dropdown-item" th:href="@{/filter(genre='mysteri')}">Misztikus</a></li>
+                            <li><a class="dropdown-item" th:href="@{/filter(genre='music')}">Musical</a></li>
+                            <li><a class="dropdown-item" th:href="@{/filter(genre='romance')}">Romantikus</a></li>
+                            <li><a class="dropdown-item" th:href="@{/filter(genre='short')}">Rövid</a></li>
+                            <li><a class="dropdown-item" th:href="@{/filter(genre='sci-fi')}">Sci-Fi</a></li>
+                            <li><a class="dropdown-item" th:href="@{/filter(genre='sport')}">Sport</a></li>
+                            <li><a class="dropdown-item" th:href="@{/filter(genre='thriller')}">Thriller</a></li>
+                            <li><a class="dropdown-item" th:href="@{/filter(genre='historical')}">Történelem</a></li>
+                            <li><a class="dropdown-item" th:href="@{/filter(genre='western')}">Western</a></li>
+                        </div>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <form class="d-flex" action="#" th:action="@{/search}">
+                        <input type="text" class="form-control me-2" name="filmTitle" placeholder="Keresés" aria-label="Search" minlength="3" maxlength="255">
+                        <button class="btn btn-outline-success search-btn" type="submit">Keresés</button>
+                    </form>
+                </li>
+            </ul>
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a th:attr="class=${active == 'Main' ? 'nav-link active' : 'nav-link'}" th:href="@{/}" id="home">Főoldal</a>
+                </li>
+                <li class="nav-item">
+                    <a th:attr="class=${active == 'Filmek' || active == 'Film' ? 'nav-link active' : 'nav-link'}" th:href="@{/filmek}" id="movies">Filmek</a>
+                </li>
+                <li class="nav-item">
+                    <a th:attr="class=${active == 'Sorozatok' || active == 'Sorozat' ? 'nav-link active' : 'nav-link'}" th:href="@{/sorozatok}" id="series">Sorozatok</a>
+                </li>
+                <li sec:authorize="hasAuthority('ADMIN')" class="nav-item">
+                    <a th:attr="class=${active == 'FilmAdd' ? 'nav-link active' : 'nav-link'}" class="nav-link" th:href="@{/film/add}" id="filmadd">FilmAdd</a>
+                </li>
+                <li class="nav-item">
+                    <a sec:authorize="isAuthenticated()" class="nav-link" th:href="@{/logout}" id="logout">Kijelentkezés</a>
+                    <a sec:authorize="isAnonymous()" class="nav-link" th:href="@{/login}" id="login">Belépés</a>
+                </li>
+            </ul>
+            <div sec:authorize="isAuthenticated()" class="btn-group">
+                <button type="button" class="btn profil-button" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
+                    <img th:src="@{/images/user-icon.png}" alt="logo" height="60px">
+                </button>
+                <ul sec:authorize="isAuthenticated()" class="dropdown-menu">
+                    <a class="nav-profil-drop-link" th:href="@{/profil}"><li><button class="dropdown-item profil" type="button">Profil</button></li></a>
+                    <a class="nav-profil-drop-link" th:href="@{/ratings}"><li><button class="dropdown-item profil" type="button">Értékeléseim</button></li></a>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>

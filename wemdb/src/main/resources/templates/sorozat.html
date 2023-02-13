@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<div th:replace="fragments/header :: basic (title='Sorozat')"></div>
+<body>
+    <div th:replace="fragments/navigation :: nav (active='Sorozat')"></div>
+    <div class="ratingAdd ratingVisszajel" th:if="${ratingMessage}" th:text="${ratingMessage}">Message
+    </div>
+    <button th:if="${ratingMessage}" type="button" class="btn-close modal-button ratingVisszajelCloseButton" id="ert-visszajel-success-bezar" aria-label="Close"></button>
+    <div class="ratingAdd ratingVisszajelError" th:if="${ratingErrorMessage}" th:text="${ratingErrorMessage}">Message
+    </div>
+    <button th:if="${ratingErrorMessage}" type="button" class="btn-close modal-button ratingVisszajelCloseButton" id="ert-visszajel-error-bezar" aria-label="Close"></button>
+
+    <div class="reviewAdd reviewVisszajel" th:if="${reviewMessage}" th:text="${reviewMessage}">Message
+    </div>
+    <button th:if="${reviewMessage}" type="button" class="btn-close modal-button reviewVisszajelCloseButton" id="kritika-visszajel-success-bezar" aria-label="Close"></button>
+    <div class="reviewAdd reviewVisszajelError" th:if="${reviewErrorMessage}" th:text="${reviewErrorMessage}">Message
+    </div>
+    <button th:if="${reviewErrorMessage}" type="button" class="btn-close modal-button reviewVisszajelCloseButton" id="kritika-visszajel-error-bezar" aria-label="Close"></button>
+        <div class="container-fluid film-data" th:each="obj : ${film}">
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-5 col-lg-4 col-xl-4 col-xxl-3">
+                    <div class="movie-img sticky-sb">
+                        <img th:src="${film.get().getIndexKep()}" alt="Index kép">
+                        <div class="movie-btn">
+                            <p th:if="${film.get().getBefejezesYear() == 0}" th:text="${film.get().getPremierYear()} + ' - '"></p>
+                            <p th:if="${film.get().getBefejezesYear() != 0}" th:text="${film.get().getPremierYear()} + ' - ' + ${film.get().getBefejezesYear()} + ' '"></p>
+                            <p th:text="${film.get().getEvad()} + ' Évad '"></p>
+                            <p th:text="${film.get().getBesorolas()}"></p>
+                        </div>
+
+                        <button sec:authorize="isAuthenticated()" type="button" class="btn btn-secondary rating" data-bs-toggle="modal" data-bs-target="#ratingModal">Értékelés hozzáadása</button>
+                        <div sec:authorize="isAuthenticated()" class="modal fade" id="ratingModal" tabindex="-1" aria-labelledby="ratingModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content" th:object="${authorizeUserRating}">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="ratingModalLabel" th:text="${film.get().getCim()} + ' értékelése'"></h5>
+                                        <button type="button" class="btn-close modal-button" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <form class="filmadd-form" modelAttribute="userRating" action="#" th:action="@{/sorozat/}+${film.get().getFilmId()}" th:object="${userRating}"  method="post">
+                                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                                        <div class="modal-body">
+                                            <div th:if="${authorizeUserRating == null}" class="stars" data-rating="0">
+                                                <span class="rating-text">Értékelje a filmet:</span>
+                                                <label class="star">
+                                                    <input class="radio" type="radio" name="starValue" value="1" th:field="*{value}" />
+                                                </label>
+                                                <label class="star">
+                                                    <input class="radio" type="radio" name="starValue" value="2" th:field="*{value}" />
+                                                </label>
+                                                <label class="star">
+                                                    <input class="radio" type="radio" name="starValue" value="3" th:field="*{value}" />
+                                                </label>
+                                                <label class="star">
+                                                    <input class="radio" type="radio" name="starValue" value="4" th:field="*{value}" />
+                                                </label>
+                                                <label class="star">
+                                                    <input class="radio" type="radio" name="starValue" value="5" th:field="*{value}" />
+                                                </label>
+                                            </div>
+                                            <div th:if="${authorizeUserRating != null}" class="stars updateRatingstars" th:attr="data-rating=${authorizeUserRating.getValue()}">
+                                                <span class="rating-text">Értékelje a sorozatot:</span>
+                                                <label class="star updateRatingstar">
+                                                    <input class="radio" type="radio" name="starValue" value="1" th:field="*{value}" />
+                                                </label>
+                                                <label class="star updateRatingstar">
+                                                    <input class="radio" type="radio" name="starValue" value="2" th:field="*{value}" />
+                                                </label>
+                                                <label class="star updateRatingstar">
+                                                    <input class="radio" type="radio" name="starValue" value="3" th:field="*{value}" />
+                                                </label>
+                                                <label class="star updateRatingstar">
+                                                    <input class="radio" type="radio" name="starValue" value="4" th:field="*{value}" />
+                                                </label>
+                                                <label class="star updateRatingstar">
+                                                    <input class="radio" type="radio" name="starValue" value="5" th:field="*{value}" />
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button th:if="${authorizeUserRating != null}" type="submit" class="btn btn-danger modal-button" name="ratingDelete">Értékelés törlése</button>
+                                            <input type="submit" class="btn btn-primary modal-button" name="ratingSave" value="Mentés">
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="button-container" sec:authorize="hasAuthority('ADMIN') || hasAuthority('CRITIC')">
+                            <div class="film-add-container" th:if="${authorizeUserReview == null}">
+                                <button  type="button" class="btn btn-secondary critic" data-bs-toggle="modal" data-bs-target="#movieCriticModal">Kritika írása</button>
+                                <div class="modal fade" id="movieCriticModal" tabindex="-1" aria-labelledby="movieCriticModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="movieCriticModalLabel"> Kritika hozzáadása</h5>
+                                                <button type="button" class="btn-close modal-button" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <form class="filmadd-form" modelAttribute="userRating" action="#" th:action="@{/sorozat/}+${film.get().getFilmId()}" th:object="${kritika}"  method="post">
+                                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                                                <div class="modal-body criticModal">
+                                                    <div class="stars" th:field="*{rating}" data-rating="0">
+                                                        <span class="rating-text">Értékelje a sorozatot:</span>
+                                                        <label class="star">
+                                                            <input class="radio" type="radio" name="starValue" value="1" th:field="*{rating}" />
+                                                        </label>
+                                                        <label class="star">
+                                                            <input class="radio" type="radio" name="starValue" value="2" th:field="*{rating}" />
+                                                        </label>
+                                                        <label class="star">
+                                                            <input class="radio" type="radio" name="starValue" value="3" th:field="*{rating}" />
+                                                        </label>
+                                                        <label class="star">
+                                                            <input class="radio" type="radio" name="starValue" value="4" th:field="*{rating}" />
+                                                        </label>
+                                                        <label class="star">
+                                                            <input class="radio" type="radio" name="starValue" value="5" th:field="*{rating}" />
+                                                        </label>
+                                                    </div>
+                                                    <div class="modal-critic">
+                                                        <span class="criticTitle">Főcím:</span>
+                                                        <input type="text" id="criticTitle" name="criticTitle" required th:field="*{title}">
+                                                    </div>
+                                                    <div class="modal-critic">
+                                                        <span>Kritika:</span>
+                                                        <br>
+                                                        <textarea rows="10" cols="41" required id="content" name="content" th:field="*{content}"></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="submit" class="btn btn-primary modal-button" name="reviewSave">Mentés</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="film-update-container" th:if="${authorizeUserReview}">
+                                <button  type="button" class="btn btn-secondary critic" data-bs-toggle="modal" data-bs-target="#movieCriticModalUpdate">Kritika Frissítése</button>
+                                <div class="modal fade" id="movieCriticModalUpdate" tabindex="-1" aria-labelledby="movieCriticModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="movieCriticModalUpdateLabel"> Kritika Frissítése</h5>
+                                                <button type="button" class="btn-close modal-button" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <form class="filmadd-form" modelAttribute="userRating" action="#" th:action="@{/sorozat/}+${film.get().getFilmId()}" th:object="${kritika}"  method="post">
+                                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                                                <div class="modal-body criticModal" th:object="${authorizeUserReview}">
+                                                    <div class="stars updateReviewstars" th:attr="data-rating=${authorizeUserReview.getRating()}">
+                                                        <span class="rating-text">Értékelje a sorozatot:</span>
+                                                        <label class="star updateReviewstar">
+                                                            <input class="radio" type="radio" name="starValue" value="1" th:field="*{rating}" />
+                                                        </label>
+                                                        <label class="star updateReviewstar">
+                                                            <input class="radio" type="radio" name="starValue" value="2" th:field="*{rating}" />
+                                                        </label>
+                                                        <label class="star updateReviewstar">
+                                                            <input class="radio" type="radio" name="starValue" value="3" th:field="*{rating}" />
+                                                        </label>
+                                                        <label class="star updateReviewstar">
+                                                            <input class="radio" type="radio" name="starValue" value="4" th:field="*{rating}" />
+                                                        </label>
+                                                        <label class="star updateReviewstar">
+                                                            <input class="radio" type="radio" name="starValue" value="5" th:field="*{rating}" />
+                                                        </label>
+                                                    </div>
+                                                    <div class="modal-critic">
+                                                        <span class="criticTitle">Főcím:</span>
+                                                        <input type="text" id="criticUpdateTitle" name="criticTitle" required th:value="${authorizeUserReview.getTitle()}" th:name="title" th:id="title" >
+                                                    </div>
+                                                    <div class="modal-critic">
+                                                        <span>Kritika:</span>
+                                                        <br>
+                                                        <textarea rows="10" cols="41" required name="criticContent" th:text="${authorizeUserReview.getContent()}" th:name="content" th:id="content" ></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="submit" class="btn btn-danger modal-button" name="reviewDelete">Kritika törlése</button>
+                                                    <button type="submit" class="btn btn-primary modal-button" name="reviewUpdate">Mentés</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="button-container" sec:authorize="hasAuthority('ADMIN')">
+                            <div class="actor-add-container">
+                                <button type="button" class="btn btn-secondary actor" data-bs-toggle="modal" data-bs-target="#seriesActorModal">Színészek hozzáadása</button>
+                                <div class="modal fade" id="seriesActorModal" tabindex="-1" aria-labelledby="seriesActorModalLabel" aria-modal="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="seriesActorModalLabel"> Színészek hozzáadása</h5>
+                                                <button type="button" class="btn-close modal-button" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+
+
+
+                                            <form class="serieadd-form">
+
+
+                                                <div class="modal-body actorModal" style="float: left">
+                                                    <div class="modal-actor-name" id="actorName" style="float: left; width: 50%;">
+                                                        <span class="actorName" style="margin-left: 10px">Név:</span>
+                                                        <input type="text" name="actorName" required="" style="width: 80%; margin: 0 0 20px 10px">
+                                                    </div>
+                                                    <div class="modal-actor-name" id="characterName" style="float: right; width: 50%;">
+                                                        <span class="characterName" style="margin-left: 10px">Karakter:</span>
+                                                        <input type="text" name="characterName" required="" style="width: 80%; margin: 0 0 20px 10px">
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer" style="justify-content: space-between;">
+                                                    <div id="actorButtons" style="float: left; text-align: center">
+                                                        <button type="button" class="btn btn-secondary modal-button" id="actorAdd">Új színész hozzáadása</button>
+                                                    </div>
+                                                    <button type="button" class="btn btn-danger modal-button" id="actorInputReset">Visszaállítás</button>
+                                                    <button type="submit" class="btn btn-primary modal-button" name="actorSave">Mentés</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-7 col-lg-8 col-xl-8 col-xxl-9">
+                <div class="movie-single-ct main-content">
+                    <h1 class="movie-title" th:text="${film.get().getCim()}"></h1>
+                    <div class="movie-rate">
+                        <div class="rate">
+                            <div class="kulso-div">
+                                <div class="rate-first-div">
+                                    <p class="cim"><span>Felhasználói értékelés</span></p>
+                                    <ion-icon class="rating-star" name="star" size="large"></ion-icon>
+                                    <p><span th:text="${rating.getFilmRating(film.get().getFilmId())} + '/5'"></span><br>
+                                        <span class="review" th:text="${rating.getFilmRatingCount(film.get().getFilmId())} + ' Értékelés'"></span>
+                                    </p>
+                                </div>
+                                <div class="rate-first-div-right">
+                                    <p class="cim"><span>Kritikus értékelés</span></p>
+                                    <ion-icon class="rating-star" name="star" size="large"></ion-icon>
+                                    <p><span  th:text="${reviewRating.getFilmReviewAvg(film.get().getFilmId())} + '/5'"></span><br>
+                                        <span class="review" th:text="${reviewRating.getFilmReviewCount(film.get().getFilmId())} + ' Értékelés'"></span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12 col-sm-12 col-md-7 col-lg-8 col-xl-8">
+                            <div class="title-header">
+                                <h4>Leírás</h4>
+                            </div>
+                            <p th:text="${film.get().getLeiras()}"></p>
+                            <div class="title-header">
+                                <h4>Kritika</h4>
+                            </div>
+                            <div class="movie-user-review-item" th:each="review : ${reviews}"  th:if="${review != null}">
+                                <h3  th:text="${review.getTitle()}"></h3>
+                                <p class="time" th:text="${review.getCreateDate()}"></p> <p class="time" th:if="${user.findByUserId(review.getUserId())}" th:text="${user.findByUserId(review.getUserId()).getUserName()}"></p>
+                                <p th:text="${review.getContent()}"></p>
+                            </div>
+                            <div class="title-header">
+                                <h4>Szinészek / Karakterek</h4>
+                            </div>
+                            <div class="movie-cast">
+                                <div class="cast-item">
+                                    <div class="cast-left">
+                                        <a href="#">Tom Hardy</a>
+                                    </div>
+                                    <p>Eddie Brock</p>
+                                </div>
+                                <div class="cast-item">
+                                    <div class="cast-left">
+                                        <a href="#">Michelle Williams</a>
+                                    </div>
+                                    <p>Anne Weying</p>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-12 col-sm-12 col-md-5 col-lg-4 col-xl-4">
+                            <div class="side-item">
+                                <h6>Rendező: </h6>
+                                <p><a href="#">Ruben Fleischer</a></p>
+                            </div>
+                            <div class="side-item">
+                                <h6>Író: </h6>
+                                <p><a href="#">Jeff Pinkner,</a> <a href="#">Scott Rosenberg,</a> <a href="#">Kelly Marcel</a></p>
+                            </div>
+                            <div class="side-item">
+                                <h6>Műfajok:</h6>
+                                <p th:text="${film.get().getMufaj()}"></p>
+                            </div>
+                            <div class="side-item">
+                                <h6>Megjelenés Dátum:</h6>
+                                <p th:text="${film.get().getPremier()}"></p>
+                            </div>
+                            <div class="side-item" >
+                                <h6>Évadok száma:</h6>
+                                <p th:text="${film.get().getEvad()}"></p>
+                            </div>
+                            <div class="side-item" >
+                                <h6>Epizódok száma:</h6>
+                                <p th:text="${film.get().getEpizodok()}" ></p>
+                            </div>
+                            <div class="side-item">
+                                <h6>Hossz:</h6>
+                                <p th:text="${film.get().getHossz()}"></p>
+                            </div>
+                            <div class="side-item">
+                                <h6>MMPA Besorolás:</h6>
+                                <p th:text="${film.get().getBesorolas()}"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

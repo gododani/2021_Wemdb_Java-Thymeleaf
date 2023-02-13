@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="fragments/header :: basic (title='Sorozatok')"></div>
+<body>
+<div th:replace="fragments/navigation :: navigation (active='Sorozatok')"></div>
+<div class="container">
+    <div class="row-own">
+        <div class="box-item" th:each="film : ${films}" th:object="${films}" th:if="${film.getTipus()} == 'sorozat'" >
+            <div class="flip-box">
+                <div class="flip-box-front text-center" th:style="'background:url('+ ${film.getIndexKep()} +');'" ></div>
+                <div class="flip-box-back text-center">
+                    <div class="inner color-white">
+                        <h1 class="flip-box-header" th:text="${film.getCim()}"></h1>
+                        <span class="fa fa-star"></span>
+                        <span th:text="${ratings.getFilmFullRating(film.getFilmId())} + '/5'"></span>
+                        <hr>
+                        <p th:text="${film.getLeiras()}"></p>
+                        <hr>
+                        <a th:href="@{sorozat/} + ${film.getFilmId()}"><button class="btn btn-outline-secondary btn-lm">További információk</button></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

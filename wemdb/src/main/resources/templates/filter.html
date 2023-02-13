@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="fragments/header :: basic (title='Filter')"></div>
+<body>
+<div th:replace="fragments/navigation :: navigation (active='Filter')"></div>
+<div class="section" th:if="${noData}">
+    <div class="container">
+        <div class="section-header" th:text="${noData}">
+        </div>
+    </div>
+</div>
+<div class="section" th:object="${films}" th:if="${noData == null && films.size() > 0}">
+    <div class="container">
+        <div class="section-header">
+            Filmek
+        </div>
+        <div class="row-own">
+            <div class="box-item" th:each="film : ${films}">
+                <div class="flip-box">
+                    <div class="flip-box-front text-center" th:style="'background:url('+ ${film.getIndexKep()} +');'" ></div>
+                    <div class="flip-box-back text-center">
+                        <div class="inner color-white">
+                            <h1 class="flip-box-header" th:text="${film.getCim()}"></h1>
+                            <span class="fa fa-star"></span>
+                            <span th:text="${ratings.getFilmFullRating(film.getFilmId())} + '/5'"></span>
+                            <hr>
+                            <p th:text="${film.getLeiras()}"></p>
+                            <hr>
+                            <a th:href="@{film/} + ${film.getFilmId()}"><button class="btn btn-outline-secondary btn-lm">További információk</button></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="section" th:object="${series}" th:if="${noData == null && series.size() > 0}">
+    <div class="container">
+        <div class="section-header">
+            Sorozatok
+        </div>
+        <div class="row-own">
+            <div class="box-item" th:each="film : ${series}">
+                <div class="flip-box">
+                    <div class="flip-box-front text-center" th:style="'background:url('+ ${film.getIndexKep()} +');'" ></div>
+                    <div class="flip-box-back text-center">
+                        <div class="inner color-white">
+                            <h1 class="flip-box-header" th:text="${film.getCim()}"></h1>
+                            <span class="fa fa-star"></span>
+                            <span th:text="${ratings.getFilmFullRating(film.getFilmId())} + '/5'"></span>
+                            <hr>
+                            <p th:text="${film.getLeiras()}"></p>
+                            <hr>
+                            <a th:href="@{sorozat/} + ${film.getFilmId()}"><button class="btn btn-outline-secondary btn-lm">További információk</button></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

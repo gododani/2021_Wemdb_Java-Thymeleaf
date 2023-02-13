@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="fragments/header :: basic (title='Ratings')"></div>
+<body>
+    <div th:replace="fragments/navigation :: nav (active='Ratings')"></div>
+    <div class="section">
+        <div class="container">
+            <div class="section-header">
+                🍍 Film Értékeléseim 🍍
+            </div>
+            <div class="row" >
+                <!-- MOVIE ITEM -->
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 col-xxl-2" th:each="film : ${films}" th:object="${film}" th:if="${film.getTipus()} == 'film'" >
+                    <a  th:href="@{film/} + ${film.getFilmId()}" class="movie-item">
+                        <img th:src="${film.getIndexKep()}" alt="">
+                        <div class="movie-item-content">
+                            <div class="movie-item-title" th:text="${film.getCim()}"></div>
+                            <div class="movie-infos">
+                                <div class="movie-info">
+                                    <i class="bx bxs-star"></i>
+                                    <span th:text="${rating.getFilmFullRating(film.getFilmId())} + '/5'"></span>
+                                </div>
+                                <div class="movie-info">
+                                    <i class="bx bxs-time"></i>
+                                    <span th:text="${film.getHossz()}"></span>
+                                </div>
+                                <div class="movie-info">
+                                    <span th:text="${film.getBesorolas()}"></span>
+                                </div>
+                                <div class="movie-info">
+                                    értékelve:
+                                    <i class="bx bxs-star"></i>
+                                    <span th:text="${rating.getRatingByUserIdAndFilmId(user.getUserId(), film.getFilmId()).getValue()} + '/5'"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <!-- END MOVIE ITEM -->
+        </div>
+    </div>
+    <div class="section">
+        <div class="container">
+            <div class="section-header">
+                🍍 Sorozat Értékeléseim 🍍
+            </div>
+            <div class="row" >
+                <!-- MOVIE ITEM -->
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 col-xxl-2" th:each="film : ${films}" th:object="${film}" th:if="${film.getTipus()} == 'sorozat'" >
+                    <a  th:href="@{sorozat/} + ${film.getFilmId()}" class="movie-item">
+                        <img th:src="${film.getIndexKep()}" alt="">
+                        <div class="movie-item-content">
+                            <div class="movie-item-title" th:text="${film.getCim()}"></div>
+                            <div class="movie-infos">
+                                <div class="movie-info">
+                                    <i class="bx bxs-star"></i>
+                                    <span th:text="${rating.getFilmFullRating(film.getFilmId())} + '/5'"></span>
+                                </div>
+                                <div class="movie-info">
+                                    <i class="bx bxs-time"></i>
+                                    <span th:text="${film.getEvad()} + ' évad'"></span>
+                                </div>
+                                <div class="movie-info">
+                                    <span th:text="${film.getBesorolas()}"></span>
+                                </div>
+                                <div class="movie-info">
+                                    értékelve:
+                                    <i class="bx bxs-star"></i>
+                                    <span th:text="${rating.getRatingByUserIdAndFilmId(user.getUserId(), film.getFilmId()).getValue()} + '/5'"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <!-- END MOVIE ITEM -->
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

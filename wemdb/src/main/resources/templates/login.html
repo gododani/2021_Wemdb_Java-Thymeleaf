@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:replace="fragments/header :: basic (title='Login')"></div>
+<body>
+    <!--@thymesVar id="user" type="com.example.film.model.User"-->
+    <form class="login-form col-8 col-sm-6 col-md-6 col-lg-5 col-xl-4" th:action="@{/login}" th:object="${user}" method="post">
+        <div class="login-logo">
+            <a th:href="@{/}"><img th:src="@{/images/logo.png}" alt="logo"></a>
+        </div>
+        <div class="registration" th:if="${message}"  th:text="${message}">Message</div>
+        <div class="loginerror" th:if="${error}"  th:text="${error}">Message</div>
+        <div class="container">
+          <h1 class="login-header">Bejelentkezés</h1>
+            <hr>
+            <label for="username"><b>Felhasználónév:</b></label>
+            <input type="username" th:field="*{userName}" class="login-input" id="username" name="username" required>
+            <label for="login-pwd"><b>Jelszó:</b></label>
+            <input type="password" th:field="*{password}" class="login-input" id="login-pwd" name="login-pwd" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" required>
+            <hr>
+            <div class="login-button">
+                <input type="submit" class="login-input login-submit" id="login" value="Bejelentkezés">   
+            </div>
+            <input type="checkbox" name="remember-me" id="remember-me">
+            <span>Emlékezz rám</span>
+            <hr>
+            <span>Nincs fiókja?</span>
+            <a th:href="@{/register}" ><strong>Regisztráljon itt</strong></a>
+        </div>
+      </form>
+</body>
+</html>

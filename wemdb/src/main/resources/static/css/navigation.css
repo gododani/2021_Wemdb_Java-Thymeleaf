@@ -1,0 +1,24 @@
+.filter-dropdown{
+    display: flex;
+    width: 520px;
+    flex-wrap: wrap;
+}
+
+.dropdown-item{
+    background-color: rgb(33, 37, 41);
+    width: 130px;
+}
+
+.profil{
+    width: 100%;
+}
+
+.filter-ul{
+    padding-bottom: 0;
+}
+
+@media screen and (max-width: 500px){
+    .filter-dropdown{
+        width: 410px !important;
+    }
+}

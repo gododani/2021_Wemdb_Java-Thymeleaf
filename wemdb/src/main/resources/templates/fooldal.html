@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="fragments/header :: basic (title='Main')"></div>
+<body>
+    <div th:replace="fragments/navigation :: nav (active='Main')"></div>
+    <div class="section">
+        <div class="container">
+            <div class="section-header">
+                Top 10 Film
+            </div>
+            <div class="movies-slide carousel-nav-center owl-carousel" >
+                <!-- MOVIE ITEM -->
+                <a th:each="film : ${films}" th:object="${films}" th:href="@{film/} + ${film.getFilmId()}" class="movie-item">
+                    <img th:src="${film.getIndexKep()}" alt="">
+                    <div class="movie-item-content">
+                        <div class="movie-item-title" th:text="${film.getCim()}"></div>
+                        <div class="movie-infos">
+                            <div class="movie-info">
+                                <i class="bx bxs-star" ></i>
+                                <span th:text="${rating.getFilmFullRating(film.getFilmId())} + '/5'"></span>
+                            </div>
+                            <div class="movie-info">
+                                <i class="bx bxs-time"></i>
+                                <span th:text="${film.getHossz()}"></span>
+                            </div>
+                            <div class="movie-info">
+                                <span th:text="${film.getBesorolas()}"></span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <!-- END MOVIE ITEM -->
+            </div>
+        </div>
+    </div>
+    <div class="section">
+        <div class="container">
+            <div class="section-header">
+                Top 10 Sorozat
+            </div>
+            <div class="movies-slide carousel-nav-center owl-carousel">
+                <!-- MOVIE ITEM -->
+                <a th:each="sorozat : ${series}" th:object="${series}" th:href="@{sorozat/} + ${sorozat.getFilmId()}" class="movie-item">
+                    <img th:src="${sorozat.getIndexKep()}" alt="logo image">
+                    <div class="movie-item-content">
+                        <div class="movie-item-title" th:text="${sorozat.getCim()}">
+                        </div>
+                        <div class="movie-infos">
+                            <div class="movie-info">
+                                <i class="bx bxs-star"></i>
+                                <span th:text="${rating.getFilmFullRating(sorozat.getFilmId())} + '/5'"></span>
+                            </div>
+                            <div class="movie-info">
+                                <i class="bx bxs-time"></i>
+                                <span th:text="${sorozat.getEvad()} + ' évad'"></span>
+                            </div>
+                            <div class="movie-info">
+                                <span th:text="${sorozat.getBesorolas()}"></span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

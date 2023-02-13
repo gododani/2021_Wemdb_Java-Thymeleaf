@@ -1,0 +1,103 @@
+*{
+    box-sizing: border-box;
+    font-family:Arial, Helvetica, sans-serif;
+    color: black;
+}
+body{
+    background: #212120;
+}
+.register-header{
+	text-align: center;
+}
+.register-logo{
+    text-align: center;
+    margin: 20px 0 10px 0;
+}
+.register-input{
+    width: 100%;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    border: none;
+    border-radius: 7px;
+    display: inline-block;
+    background: #f1f1f1;
+}
+.register-input:focus{
+    background-color: #ddd;
+    outline: none;
+}
+#register{
+    width: 80%;
+    margin: 0 10% 15px 10%;
+  }
+  input[type="submit"]{
+    background-color: #4CAF50;
+    color: black;
+    margin: 0 0 10px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    opacity: 0.8;
+    font-size: large;
+  }
+  input[type="submit"]:hover {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+  .container {
+    padding: 15px;
+  }
+  .register-form {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fefefe;
+    opacity: 0.85;
+    margin: auto;
+    border: 1px solid #888;
+    border-radius: 20px;
+  }
+  hr {
+    border: 1px solid #f1f1f1;
+    margin-top: 10px;
+    margin-bottom: 25px;
+  }
+  b, span{
+      margin-left: 5px;
+  }
+  a{
+    text-decoration: none;
+  }
+  a strong{
+      color: blue;
+  }
+.validationError{
+    color: #ff0000;
+}
+@media only screen and (max-height: 850px) {
+    .register-firstBlock{
+        float: left;
+        width: 45%;
+    }
+    .register-secondBlock{
+        float: right;
+        width: 45%;
+    }
+}
+@media only screen and (max-height: 850px) and (max-width: 640px){
+    .register-firstBlock{
+        font-size: small;
+    }
+    .register-secondBlock{
+        font-size: small;
+    }
+}
+@media only screen and (max-height: 850px) and (max-width: 400px){
+    .register-firstBlock{
+        font-size: 11px;
+    }
+    .register-secondBlock{
+        font-size: 11px;
+    }
+}

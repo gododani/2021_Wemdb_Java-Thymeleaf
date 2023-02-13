@@ -1,0 +1,195 @@
+body {
+  background-color: #020d18 !important;
+}
+.container {
+  position: relative !important;
+  margin: 0 auto;
+  padding-left: 15px;
+  padding-right: 15px;
+  width: 70%;
+}
+.container-fluid {
+  margin: 0 auto;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.row {
+  margin-left: -15px;
+  margin-right: -15px;
+}
+.col-md-4, .col-md-8{
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.col-md-4, .col-md-8,.col-md-12 {
+  float: left;
+  width: 66.6%;;
+}
+.col-md-4 {
+  width: 33.3%;
+}
+p{
+  font-family: 'Nunito', sans-serif;
+  font-size: 14px;
+  color: #abb7c4;
+  font-weight: 300;
+  text-transform: none;
+  line-height: 25px;
+}
+.movie-title {
+  font-family: 'Dosis', sans-serif;
+  font-size: 42px;
+  color: white;
+  font-weight: 700;
+  text-transform: none;
+  margin-bottom: 25px;
+}
+.movie-title span {
+  font-family: 'Dosis', sans-serif;
+  font-size: 24px;
+  color: #4f5b68;
+  font-weight: 300;
+  text-transform: uppercase;
+}
+.title-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 25px;
+  border-bottom: 1px solid #233a50;
+  padding-bottom: 8px;
+  margin-top: 30px;
+}
+.title-header h4 {
+  font-family: 'Dosis', sans-serif;
+  font-size: 14px;
+  color: #ffffff;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+.time {
+  font-family: 'Nunito', sans-serif;
+  font-size: 12px;
+  color: #abb7c4;
+  font-weight: 300;
+  text-transform: none;
+}
+.page-single {
+  padding: 100px 0;
+}
+.movie-img {
+  margin-right: 30px;
+  margin-bottom: 60px;
+}
+.movie-img img {
+  width: 100%;
+  border-radius: 5px;
+}
+.movie-btn {
+  text-align: center;
+  padding: 18px;
+  display: flex;
+  flex-direction: row;
+  background-color: #07101a;
+  border: 3px solid #0c1c2c;
+}
+.movie-btn p{
+  margin: 0 auto;
+  font-size: large;
+}
+.movie-rate {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  border-top: 1px solid #405266;
+  border-bottom: 1px solid #405266;
+  margin-bottom: 10px;
+}
+.rate {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 10px;
+}
+.rate p {
+  margin: 0 50px;
+}
+.rate .rating-star {
+  color: #f5b50a;
+}
+.rate p {
+  margin-bottom: 0;
+  margin-left: 10px;
+  font-size: 15px;
+}
+.rate p span {
+  color: #ffffff;
+  font-weight: 400;
+}
+.rate p span.review {
+  font-size: 12px;
+  color: #4280bf;
+}
+.rate-rank{
+  font-size: large !important;
+}
+.row h3 {
+  font-family: 'Dosis', sans-serif;
+  font-size: 18px;
+  color: #abb7c4;
+  font-weight: bold;
+  text-transform: none;
+  margin-bottom: 15px;
+}
+.movie-cast .cast-item {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 30px;
+}
+.cast-item .cast-left {
+  width: 60%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.cast-item p{
+  margin-bottom: 0 !important;
+}
+.movie-cast .cast-item a:hover {
+  color: #dcf836;
+}
+.no-star {
+  color: #f5b50a;
+}
+.no-star .last {
+  color: #abb7c4;
+}
+.side-item {
+  margin-bottom: 30px;
+  margin-left: 30px;
+}
+.side-item h6 {
+  font-family: 'Dosis', sans-serif;
+  font-size: 14px;
+  color: #abb7c4;
+  font-weight: bold;
+  margin: 15px 0;
+}
+.side-item p.tags a {
+  background-color: #233a50;
+  color: #abb7c4;
+  padding: 2px 5px;
+  border-radius: 2px;
+}
+.side-item p a:hover {
+  color: #dcf836;
+}
+.movie-user-review-item p a:hover{
+  color: #dcf836;
+}
+a:hover{
+  text-decoration: none;
+}

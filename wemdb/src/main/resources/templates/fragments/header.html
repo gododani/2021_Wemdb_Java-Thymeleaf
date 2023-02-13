@@ -1,0 +1,80 @@
+<head th:fragment="basic (title)" xmlns:th="http://www.thymeleaf.org">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous"/>-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script th:src="@{/javascript/carousel.js}"></script>
+    <script th:if="${title == 'Profil'}" th:src="@{/javascript/profil.js}"></script>
+    <script th:if="${title == 'Film' || title == 'Sorozat'}" th:src="@{/javascript/rating.js}"></script>
+    <script th:if="${title == 'Film' || title == 'Sorozat'}" th:src="@{/javascript/actor.js}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g==" crossorigin="anonymous" />
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <!--<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>-->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/navigation.css}">
+    <link th:if="${title == 'Filmek' || title == 'Sorozatok' || title == 'Filter' || title == 'Search'}" rel="stylesheet" type="text/css" th:href="@{/css/flipcard.css}">
+    <link th:if="${title == 'Main' || title == 'Filter' || title == 'Search'}" rel="stylesheet" type="text/css" th:href="@{/css/main.css}">
+    <link th:if="${title == 'Error'}" rel="stylesheet" type="text/css" th:href="@{/css/main.css}">
+    <link th:if="${title == 'Ratings'}" rel="stylesheet" type="text/css" th:href="@{/css/ratings.css}">
+    <link th:if="${title == 'Profil'}" rel="stylesheet" type="text/css" th:href="@{/css/profile.css}">
+    <link th:if="${title == 'Register'}" rel="stylesheet" type="text/css" th:href="@{/css/register.css}">
+    <link th:if="${title == 'Login'}" rel="stylesheet" type="text/css" th:href="@{/css/login.css}">
+    <link th:if="${title == 'Film' || title == 'Sorozat' || title == 'Filter' || title == 'Search'}" rel="stylesheet" type="text/css" th:href="@{/css/movie_series.css}">
+    <link th:if="${title == 'FilmAdd'}" rel="stylesheet" type="text/css" th:href="@{/css/filmadd.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/footer.css}">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title th:text="${title}">Default Title</title>
+    <style>
+        .navbar-toggler:focus, .profil-button:focus{
+            box-shadow: none;
+        }
+        .dropdown-menu{
+            min-width: 120px !important;
+            max-width: 120px !important;
+            background-color: rgb(33, 37, 41);
+        }
+        .dropdown-item{
+            color: white;
+        }
+        .nav-profil-drop-link{
+            text-decoration: none;
+        }
+        .btn-group{
+            margin-right: 20px !important;
+        }
+        .dropdown-menu{
+            border: none;
+        }
+        .ratingVisszajel, .reviewVisszajel, .ratingVisszajelError, .reviewVisszajelError{
+            width: 100%;
+            display: block;
+            text-align: center;
+            color: white;
+            height: 50px;
+            margin: 0;
+            padding: 0;
+            line-height: 50px;
+            font-weight: bold;
+            font-size: 19px;
+        }
+        .reviewVisszajel, .ratingVisszajel{
+            background-color: limegreen;
+        }
+        .reviewVisszajelError, .ratingVisszajelError{
+            background-color: red;
+        }
+        .reviewVisszajelCloseButton, .ratingVisszajelCloseButton{
+            float: right; margin-top: -37px;
+        }
+    </style>
+</head>
